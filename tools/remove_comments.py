@@ -7,7 +7,6 @@ import sys
 import tokenize 
 
 
-
 def strip_comments (source_bytes ):
 
     out =[]
