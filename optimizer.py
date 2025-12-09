@@ -1,17 +1,10 @@
 import re 
 
-
-
-
-
 class Optimizer :
 
     def __init__ (self ):
 
         pass 
-
-
-
     def constant_folding (self ,ir ):
 
         consts ={}
@@ -87,38 +80,33 @@ class Optimizer :
         return out 
 
 
-
     def dead_code_elimination (self ,ir ):
-        """Remove unused temporary variables"""
-        # Find all variables that are used
+       
         used_vars = set()
         final_vars = set()
-        
-        # First pass: find all variables used on the right side and final assignments
+    
         for instr in ir:
-            # Find variables used in expressions
             matches = re.findall(r'\b(t\d+|[a-zA-Z_]\w*)\b', instr)
             for match in matches:
                 if '=' in instr:
                     parts = instr.split('=')
-                    # Add to used_vars if it appears on right side
+                   
                     if len(parts) > 1 and match in parts[1]:
                         used_vars.add(match)
-                    # Track final variable assignments
+                
                     if len(parts) > 0 and not match.startswith('t'):
                         final_vars.add(match)
         
-        # Second pass: keep only instructions that are needed
         optimized = []
         for instr in ir:
             m = re.match(r'^(t\d+)\s*=', instr)
             if m:
                 var = m.group(1)
-                # Keep temp vars that are used later
+        
                 if var in used_vars:
                     optimized.append(instr)
             else:
-                # Always keep non-temp assignments
+        
                 optimized.append(instr)
         
         return optimized if len(optimized) < len(ir) else ir 

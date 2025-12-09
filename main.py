@@ -1,7 +1,3 @@
-"""
-MathScript Compiler - Professional Main Entry Point with Detailed Output
-Executes 30 complex test cases with comprehensive compilation stage visualization
-"""
 
 from lexer import Lexer
 from enhanced_parser import EnhancedParser
@@ -13,7 +9,6 @@ import re
 import sys
 
 class CompilerStats:
-    """Statistics tracker for compilation"""
     def __init__(self):
         self.total_tokens = 0
         self.total_ir_lines = 0
@@ -25,7 +20,6 @@ class CompilerStats:
 stats = CompilerStats()
 
 def compile_and_run(source_code):
-    """Compile and run source code through the full pipeline"""
     try:
         lexer = Lexer(source_code)
         tokens = lexer.tokenize()
@@ -72,7 +66,7 @@ def format_section_header(title, width=80):
     return f"|{' ' * left_pad}{title}{' ' * right_pad}|"
 
 def print_beautiful_header():
-    """Print beautiful main header"""
+
     width = 80
     print("\n" + "+" + "=" * (width - 2) + "+")
     print(format_section_header("MATHSCRIPT COMPILER - 30 COMPLEX TESTS"))
@@ -80,7 +74,7 @@ def print_beautiful_header():
     print("+" + "=" * (width - 2) + "+\n")
 
 def print_test_header(test_num, total):
-    """Print test header"""
+
     width = 80
     header = f"TEST {test_num:02d} / {total:02d}"
     print("\n" + "-" * width)
@@ -88,13 +82,13 @@ def print_test_header(test_num, total):
     print("-" * width + "\n")
 
 def print_input_output(source_code, result, expected):
-    """Print input and output with comparison"""
+    
     print(f"  INPUT CODE:\n    {source_code}\n")
     print(f"  EXPECTED OUTPUT:\n    {expected}\n")
     print(f"  ACTUAL OUTPUT:\n    {result}\n")
 
 def print_tokens(tokens):
-    """Print tokens in formatted way"""
+
     print("  LEXICAL ANALYSIS (Tokens):")
     token_list = list(tokens)
     for i, (token_type, token_val) in enumerate(token_list, 1):
@@ -102,13 +96,11 @@ def print_tokens(tokens):
     return token_list
 
 def print_ir(ir, title="INTERMEDIATE CODE (Three-Address Code)"):
-    """Print IR code"""
     print(f"\n  {title}:")
     for i, line in enumerate(ir, 1):
         print(f"    {i:2d}. {line}")
 
 def print_statistics(tokens, ir, optimized_ir, instructions):
-    """Print compilation statistics"""
     ir_reduction = len(ir) - len(optimized_ir)
     reduction_pct = (ir_reduction / len(ir) * 100) if len(ir) > 0 else 0
     
@@ -125,7 +117,7 @@ def print_statistics(tokens, ir, optimized_ir, instructions):
     stats.total_instructions += len(instructions)
 
 def print_test_result(passed, expected, actual):
-    """Print test result with pass/fail"""
+
     width = 80
     status = "PASS" if passed else "FAIL"
     symbol = "[+]" if passed else "[-]"
@@ -143,7 +135,6 @@ def print_test_result(passed, expected, actual):
         print(f"  Got:      {actual}")
 
 def run_30_complex_tests():
-    """Run all 30 complex test cases with detailed analysis"""
     print_beautiful_header()
     
     for idx, (code, expected_vars) in enumerate(TEST_CASES_30, 1):
@@ -160,25 +151,20 @@ def run_30_complex_tests():
         
         result = output['result']
         
-        # Display input and output
+      
         print_input_output(code, result, expected_vars)
         
-        # Display tokens
         tokens = print_tokens(output['tokens'])
         
-        # Display IR stages
         print_ir(output['ir'])
         print_ir(output['optimized_ir'], "OPTIMIZED CODE (After Constant Folding & DCE)")
         
-        # Display instructions
         print(f"\n  GENERATED INSTRUCTIONS (Bytecode):")
         for i, instr in enumerate(output['instructions'], 1):
             print(f"    {i:2d}. {instr}")
         
-        # Display statistics
         print_statistics(tokens, output['ir'], output['optimized_ir'], output['instructions'])
         
-        # Check result
         all_match = True
         if result is None:
             all_match = False
@@ -187,7 +173,7 @@ def run_30_complex_tests():
                 if var_name not in result:
                     all_match = False
                     break
-                
+            
                 actual_val = result[var_name]
                 try:
                     if abs(float(actual_val) - float(expected_val)) > 1e-5:
@@ -205,11 +191,10 @@ def run_30_complex_tests():
         
         print_test_result(all_match, expected_vars, result)
     
-    # Print final summary
     print_final_summary()
 
 def print_final_summary():
-    """Print comprehensive final summary"""
+   
     total_tests = stats.tests_passed + stats.tests_failed
     pass_percentage = (stats.tests_passed / total_tests * 100) if total_tests > 0 else 0
     

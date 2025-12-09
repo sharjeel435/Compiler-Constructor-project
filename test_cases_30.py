@@ -1,8 +1,3 @@
-"""
-30 Complex Test Cases - All Mathematically Correct Expected Values
-Ready to pass 100% with python main.py
-"""
-
 TEST_CASES_30 = [
     ("x = 100", {"x": 100}),
     ("a = 50", {"a": 50}),

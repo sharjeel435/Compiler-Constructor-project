@@ -42,7 +42,6 @@ This expression-based language operates without reserved keywords
 - **RPAREN**: `\)`
 
 ## 7. Sample Implementations
-
 ### Implementation 1:
 **Input Expression:** `x = 5`  
 **Computation Result:** Variable x now contains the numerical value 5

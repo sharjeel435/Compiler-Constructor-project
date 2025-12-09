@@ -1,11 +1,4 @@
 
-
-"""
-
-Run all test cases and display beautiful organized results.
-
-"""
-
 from lexer import Lexer 
 
 from enhanced_parser import EnhancedParser 
@@ -15,10 +8,6 @@ from optimizer import Optimizer
 from code_generator import CodeGenerator 
 
 from interpreter import Interpreter 
-
-
-
-
 
 TEST_CASES =[
 
@@ -41,30 +30,17 @@ TEST_CASES =[
 ]
 
 
-
 def run_test (code ,expected ):
 
-    """Run a single test case through the full pipeline."""
-
     try :
-
-
 
         lexer =Lexer (code )
 
         tokens =lexer .tokenize ()
 
-
-
-
-
         enhanced =EnhancedParser (tokens )
 
         ast ,ir =enhanced .parse ()
-
-
-
-
 
         optimizer =Optimizer ()
 
@@ -72,31 +48,15 @@ def run_test (code ,expected ):
 
         optimized_ir =optimizer .dead_code_elimination (optimized_ir )
 
-
-
-
-
         code_gen =CodeGenerator ()
 
         final_code =code_gen .generate (optimized_ir )
-
-
-
-
 
         interpreter =Interpreter ()
 
         env =interpreter .run (final_code )
 
-
-
-
-
         user_vars ={k :v for k ,v in sorted (env .items ())if not k .startswith ('t')}
-
-
-
-
 
         passed =False 
 
@@ -115,8 +75,6 @@ def run_test (code ,expected ):
                 except :
 
                     passed =str (user_vars [var_name ])==expected_val 
-
-
 
         return {
 
@@ -154,11 +112,7 @@ def run_test (code ,expected ):
 
         }
 
-
-
 def print_header ():
-
-    """Print a beautiful header."""
 
     print ("\n"+"="*80 )
 
@@ -166,11 +120,7 @@ def print_header ():
 
     print ("="*80 +"\n")
 
-
-
 def print_test_result (num ,test ):
-
-    """Print a single test result beautifully."""
 
     status ="✓ PASS"if test ['passed']else "✗ FAIL"
 
@@ -178,15 +128,11 @@ def print_test_result (num ,test ):
 
     reset_color ="\033[0m"
 
-
-
     print (f"Test {num }: {status_color }{status }{reset_color }")
 
     print (f"  Input:    {test ['code']}")
 
     print (f"  Expected: {test ['expected']}")
-
-
 
     if test ['result']is not None :
 
@@ -200,21 +146,13 @@ def print_test_result (num ,test ):
 
         print (f"  Error:    {test .get ('error','Unknown error')}")
 
-
-
     print ()
 
-
-
 def print_summary (results ):
-
-    """Print a summary of all tests."""
 
     passed =sum (1 for r in results if r ['passed'])
 
     total =len (results )
-
-
 
     print ("="*80 )
 
@@ -224,29 +162,17 @@ def print_summary (results ):
 
     print ()
 
-
-
-
-
     for i ,(code ,expected ),result in zip (range (1 ,total +1 ),TEST_CASES ,results ):
 
         status ="✓"if result ['passed']else "✗"
 
         print (f"  [{status }] Test {i :1d}: {code :<50} → {result ['expected']}")
 
-
-
     print ()
-
-
 
 def main ():
 
-    """Run all tests and display results."""
-
     print_header ()
-
-
 
     results =[]
 
@@ -258,8 +184,6 @@ def main ():
 
         print (f"{'─'*80 }\n")
 
-
-
         result =run_test (code ,expected )
 
         results .append (result )
@@ -267,12 +191,7 @@ def main ():
         print_test_result (i ,result )
 
 
-
     print_summary (results )
-
-
-
-
 
     passed =sum (1 for r in results if r ['passed'])
 
@@ -289,7 +208,6 @@ def main ():
         print (f"  ⚠️  {failed } test(s) failed. Review the output above.\n")
 
         return 1 
-
 
 
 if __name__ =='__main__':

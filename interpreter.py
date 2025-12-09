@@ -1,9 +1,5 @@
 import re 
 
-
-
-
-
 class Interpreter :
 
     def __init__ (self ):
